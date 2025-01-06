@@ -13,6 +13,8 @@ szu常用小工具~
   学习通自动签到小工具
 - [gra-autocourse](gra-autocourse)  
   研究生自动选课小工具
+- [gra-prescore](gra-prescore)  
+  研究生查成绩小工具
 - [keepdrcom](keepdrcom)  
   教学区&宿舍区自动联网小工具
 
