@@ -18,7 +18,7 @@ szu常用小工具~
 - [detailed-score](detailed-score)  
   本科查询详细成绩小工具 (可分别查平时和期末)
 - [keepdrcom](keepdrcom)  
-  宿舍区自动联网小工具
+  宿舍区&教学区自动联网小工具
 
 如有任何疑问，请提PR或Issue，thx
 如果使用有帮助，麻烦点个Star~
