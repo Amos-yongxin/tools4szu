@@ -4,5 +4,5 @@ a tool for to query detailed-score for bachelors
 一个查本科生详细成绩(平时成绩, 期末成绩)的小工具~
 
 
-1. 填入自己的cookie，运行等待输出即可
+1. 填入自己字符串格式的cookie，会自动解析成json，运行等待输出即可
 2. 本项目仅供学习，使用本工具造成的一切后果均由脚本使用者负责，开发者不承担任何责任。
