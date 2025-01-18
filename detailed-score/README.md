@@ -3,7 +3,7 @@ a tool for to query detailed-score for bachelors
 
 一个查本科生详细成绩(平时成绩, 期末成绩)的小工具~
 
-本科详细成绩查询Detail-Score使用教程😎
+# 本科详细成绩查询Detail-Score使用教程😎
 ---
 1. 登录进入ehall办事大厅-成绩查询
 2. F12进入开发者-网络并刷新
