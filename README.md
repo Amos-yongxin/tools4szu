@@ -16,7 +16,7 @@ szu常用小工具~
 - [gra-prescore](gra-prescore)  
   研究生查成绩小工具
 - [detailed-score](detailed-score)  
-  本科查询详细成绩小工具 (可分别查平时和期末)
+  本科查询详细成绩小工具 (可分别查平时成绩和期末成绩)
 - [keepdrcom](keepdrcom)  
   宿舍区&教学区自动联网小工具
 
