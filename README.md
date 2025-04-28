@@ -7,7 +7,7 @@ szu常用小工具~
 请点进二级目录查看详情~
 
 - [venue-helper](venue-helper)  
-  深大宿体育场馆自动预约小助手
+  深大体育场馆自动预约小助手
 - [szu-dorm-helper](szu-dorm-helper)  
   深大宿舍电费提醒小助手
 - [xxt_autosign](xxt_autosign)  
