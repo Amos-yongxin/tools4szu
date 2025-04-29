@@ -44,7 +44,16 @@ if __name__ == '__main__':
         for course in datas:
             try:
                 logger.info(f"开始预约: {course}")
-                postBook(**course)
+                ret = postBook(**course)
+                if "成功" in ret:
+                    logger.info(f"预约成功: {course}")
+                    print(f"预约成功: {course}")
+
+                    # 预约成功后删除该场次, 如果需要重复预约相同时间的场次, 可以注释掉下面的代码
+                    datas = [
+                        item for item in datas if item["KYYSJD"] != course["KYYSJD"] or item["YYRQ"] != course["YYRQ"]
+                    ]
+
                 time.sleep(delay / 1000)  # 延迟时间
             except Exception as e:
                 logger.error(f"预约失败: {e}")
