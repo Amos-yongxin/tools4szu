@@ -24,7 +24,7 @@
 | 字段名    | 说明                                                  |
 |--------|-----------------------------------------------------|
 | CGDM   | 场馆代码, 通过运行`download.py`下载的`venues.xlsx`获得           |
-| CDWID  | 场地ID, 通过运行`download.py`获得的`RoomList.xlsx`的`CDWID`字段 |
+| CDWID  | 场地ID, 通过运行`download.py`获得的`RoomList.xlsx`的`CDWID`字段 (可选, 如果不填则会自动根据时间和场地进行获取) |
 | XMDM   | 项目代码, 通过运行`download.py`下载的`activities.xlsx`获得       |
 | XQWID  | 校区ID (1:粤海, 2:丽湖)                                   |
 | KYYSJD | 预约的开始时间, 形如`20:00-21:00`, 必须是合法的                    |
