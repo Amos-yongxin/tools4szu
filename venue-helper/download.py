@@ -91,5 +91,5 @@ def downloadRoom(XMDM, YYRQ, YYLX, KSSJ, JSSJ, XQDM):
 if __name__ == '__main__':
     downloadSysConfig()
     # 请修改下面的参数, 以查询需要的场地
-    downloadTimeList("1", "2025-04-29", "1.0", "001")
-    downloadRoom("001", "2025-04-29", "1.0", "13:00", "14:00", "1")
+    # downloadTimeList("1", "2025-05-01", "1.0", "001")
+    downloadRoom("001", "2025-05-01", "1.0", "20:00", "21:00", "1")

@@ -2,11 +2,10 @@
 # -*- coding: utf-8 -*-
 # @File    : settings.py
 
-cookies = "EMAP_LANG=zh; _WEU=ddbb747bc4412a28"  # 请在此处填写你的cookie, 可以直接填写字符串格式的cookies, 会自动进行解析
-stuid = "2023151001"  # 学号
-stuname = "张三同学"  # 姓名
 counts = 5 # 预约总轮次
-courses=[{"CGDM":"001","CDWID":"6fbd613382ef48db9d2a2d214e47bae3","XMDM":"001","XQWID":"1","KYYSJD":"20:00-21:00","YYRQ":"2025-04-29","YYLX":"1.0"}]  # 预约场次列表
+# courses=[{"CGDM":"001","CDWID":"6fbd613382ef48db9d2a2d214e47bae3","XMDM":"001","XQWID":"1","KYYSJD":"20:00-21:00","YYRQ":"2025-04-29","YYLX":"1.0"}]  # 预约场次列表
+# courses=[{"CGDM":"001","XMDM":"001","XQWID":"1","KYYSJD":"20:00-21:00","YYRQ":"2025-05-01","YYLX":"1.0"}]  # 预约场次列表
+courses=[{"CGDM":"008","XMDM":"002","XQWID":"1","KYYSJD":"20:00-21:00","YYRQ":"2025-04-30","YYLX":"2.0"}]  # 预约场次列表
 delay = 1000  # 延迟时间, 单位毫秒
 '''
     CGDM: 场馆代码

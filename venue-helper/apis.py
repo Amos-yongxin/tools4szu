@@ -74,6 +74,8 @@ def getTimeList(XQ, YYRQ, YYLX, XMDM):
         return ret
     except requests.exceptions.RequestException as e:
         logger.error(f"获取时间列表失败: {e}")
+    except KeyError as e:
+        logger.error(f"获取时间列表失败: {e}")
     return None
 
 
@@ -104,11 +106,14 @@ def getRoom(XMDM, YYRQ, YYLX, KSSJ, JSSJ, XQDM):
             headers=headers,
             data=data
         )
-        logger.info(f"获取场地列表成功: {ret.text}")
         ret = json.loads(ret.text)
-        return ret["datas"]["getOpeningRoom"]["rows"]
+        ret = ret["datas"]["getOpeningRoom"]["rows"]
+        logger.info(f"获取场地列表成功: {ret}")
+        return ret
     except requests.exceptions.RequestException as e:
         logger.error(f"获取场地列表失败: {e}")
+    except KeyError as e:
+        logger.error(f"获取场地列表失败: {ret}")
     return None
 
 
