@@ -12,4 +12,5 @@ a tool for to query detailed-score for bachelors
 5. 运行即可
 ---
 p.s. 如果不熟悉Python运行环境的, 可以使用油猴脚本 [Greasyfork-szu获取详细成绩](https://github.com/Liunian2000/GradeInquiry4SZU) 
+
 **本项目仅供学习，使用本工具造成的一切后果均由脚本使用者负责，开发者不承担任何责任。**
