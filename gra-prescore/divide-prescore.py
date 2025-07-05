@@ -7,8 +7,7 @@ import requests
 os.environ['NO_PROXY'] = 'ehall.szu.edu.cn'
 
 # 复制自己字符串格式的的Cookie过来，对应填进去，会自动解析成字典
-
-cookie = ''
+cookie = 'EMAP_LANG=zh; THEME=magenta;'
 
 headers = {
     'Accept': 'application/json, text/javascript, */*; q=0.01',
@@ -27,15 +26,7 @@ headers = {
 }
 cookies = {}
 
-
 def query_gte(score: int):
-    # # 单科查询，修改value
-    # data = {
-    #     'querySetting': '[{"name":"DYBFZCJ","linkOpt":"AND","builderList":"cbl_Other","builder":"moreEqual","value":' + str(
-    #         score) + '},{"name":"CJFZDM","linkOpt":"AND","builderList":"cbl_m_List","builder":"m_value_equal","value":"1","value_display":"百分制"},{"name":"KCMC","linkOpt":"AND","builder":"include","value":"高级算法设计与分析"}]',
-    #     'pageSize': 99,
-    #     'pageNumber': 1,
-    # }
     data = {
         'querySetting': '[{"name":"DYBFZCJ","linkOpt":"AND","builderList":"cbl_Other","builder":"moreEqual","value":' + str(
             score) + '},{"name":"CJFZDM","linkOpt":"AND","builderList":"cbl_m_List","builder":"m_value_equal","value":"1","value_display":"百分制"}]',
@@ -48,40 +39,33 @@ def query_gte(score: int):
         headers=headers,
         data=data
     )
-    # print(f"response:  {ret.status_code}")
-    # import time
-    # time.sleep(1)
     return json.loads(ret.text)['datas']['xscjcx_dqx']['rows']
 
-
-def query(courseName: str):
-    lScore = 70
-    rScore = 100
-    while lScore <= rScore:
+def query(courseName: str, lScore: float, rScore: float):
+    while rScore - lScore > 0.11:
         mid = round((lScore + rScore) / 2, 1)
         res = query_gte(mid)
         if courseName in str(res):
             lScore = mid
         else:
             rScore = mid
-        # print(lScore,rScore)
-        if rScore - lScore <= 0.11:
-            if courseName in str(query_gte(rScore)):
-                return rScore
-            else:
-                return lScore
-    return lScore
+    if courseName in str(query_gte(rScore)):
+        return rScore
+    else:
+        return lScore
 
-def divideQuery(allCourse: list):
-    lScore = allCourse[0][1]
-    rScore = allCourse[0][2]
-    totallLen = len(allCourse)
+def divideBoundary(boundy: list):
+    if len(boundy) <= 1 or boundy[0][2] - boundy[0][1] <= 0.11:
+        return
+    lScore = boundy[0][1]
+    rScore = boundy[0][2]
+    totallLen = len(boundy)
     cnt = 0
     while rScore - lScore > 0.11:
         cnt = 0
         mid = round((lScore + rScore) / 2, 1)
         res = query_gte(mid)
-        for course in allCourse:
+        for course in boundy:
             if course[0] in str(res):
                 course[1] = mid
             else:
@@ -94,14 +78,9 @@ def divideQuery(allCourse: list):
         else:
             lScore = mid
     if cnt != 0 and cnt != totallLen:
-        allCourse.sort(key=lambda x:x[1])
-        divideQuery(allCourse[:cnt])
-        divideQuery(allCourse[cnt:])
-    else:
-        for course in allCourse:
-            print(course, getGrade(course[1]))
-
-
+        boundy.sort(key=lambda x:x[1])
+        divideBoundary(boundy[:cnt])
+        divideBoundary(boundy[cnt:])
 
 def getGrade(score: float) -> float:
     roundScore = round(score)
@@ -122,7 +101,6 @@ def getGrade(score: float) -> float:
     else:
         return 0.0
 
-
 if __name__ == '__main__':
     cookie_list = cookie.split(';')
     for item in cookie_list:
@@ -132,26 +110,24 @@ if __name__ == '__main__':
     coursesList = query_gte(0)
     courseNames = [{'courseName': c['KCMC'], 'score': 0, 'credit': c['XF']} for c in coursesList]
     print(f'共有 {len(courseNames)} 门百分制课程')
-    allCourse = []
+    boundary = []
     for course in courseNames:
-        allCourse.append([course['courseName'], 70.0, 100.0, course['credit']])
-    divideQuery(allCourse)
-    # for course in courseNames:
-    #     course['score'] = query(course['courseName'])
-    #     print(str(course['courseName']) + str('  ') + str(course["score"]))
+        boundary.append([course['courseName'], 0.0, 100.0])
+    divideBoundary(boundary)
+    for course in courseNames:
+        for boundy in boundary:
+            if course['courseName'] == boundy[0]:
+                course['score'] = query(course['courseName'], boundy[1], boundy[2])
+                print(str(course['courseName']) + str('  ') + str(course["score"]) + str('  ') + str(getGrade(course["score"])))
+                break
     print('----------查询完毕----------')
     totalCredit = 0
     totalGrade = 0
     totalScore = 0
-    for course in allCourse:
-        totalCredit += course[3]
-        totalGrade += course[3] * getGrade(course[1])
-        totalScore += course[3] * course[1]
-    # for course in courseNames:
-    #     totalCredit += course['credit']
-    #     totalGrade += course['credit'] * getGrade(course['score'])
-    #     totalScore += course['credit'] * course['score']
+    for course in courseNames:
+        totalCredit += course['credit']
+        totalGrade += course['credit'] * getGrade(course['score'])
+        totalScore += course['credit'] * course['score']
     print(f'总学分: {totalCredit}')
     print(f'总GPA: {round(totalGrade / totalCredit, 4)}')
     print(f'总百分制分数: {round(totalScore / totalCredit, 4)}')
-
